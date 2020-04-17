@@ -68,3 +68,18 @@ jobs:
           BDPointSDK.framework.dSYM.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+  pod:
+    name: update pod
+    runs-on: [macos-latest]
+    timeout-minutes: 10
+    
+    steps:
+      # checkout current repository
+      - uses: actions/checkout@v2
+      
+      # update pod
+      - name: upload pod to cocoapods
+        env: COCOAPODS_TRUNK_TOKEN=${{ secrets.COCOAPODS_TRUNK_TOKEN }}
+        run: |
+          pod trunk push --allow-warnings BluedotPointSDK.podspec
