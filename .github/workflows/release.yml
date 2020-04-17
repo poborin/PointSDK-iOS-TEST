@@ -73,6 +73,7 @@ jobs:
     name: update pod
     runs-on: [macos-latest]
     timeout-minutes: 10
+    needs: [release]
     
     steps:
       # checkout current repository
@@ -80,6 +81,6 @@ jobs:
       
       # update pod
       - name: upload pod to cocoapods
-        env: COCOAPODS_TRUNK_TOKEN=${{ secrets.COCOAPODS_TRUNK_TOKEN }}
+        env: COCOAPODS_TRUNK_TOKEN:${{ secrets.COCOAPODS_TRUNK_TOKEN }}
         run: |
           pod trunk push --allow-warnings BluedotPointSDK.podspec
